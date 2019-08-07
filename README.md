@@ -1,5 +1,5 @@
 # FEMfuns
-
+![alt text](https://raw.githubusercontent.com/meronvermaas/FEMfuns/master/logo.png)
 Welcome to FEMfuns (Finite Element Method for useful neuroscience simulations).
 
 FEMfuns allows neuroscientists to solve the forward problem in a variety of different geometrical domains, including various types of source models and electrode properties, such as resistive and capacitive materials.
