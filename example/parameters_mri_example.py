@@ -17,7 +17,7 @@ frequencies = [1000]
 
 unit = 1e-2 #convert to cm
 
-sigma_brain = 1./300. #+ 300.j
+sigma_brain = 1./300.
 
 # two options:
 # "name": [marker, conductivity]
