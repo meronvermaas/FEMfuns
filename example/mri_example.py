@@ -5,7 +5,7 @@ sys.path.insert(0, appfolder)
 from fw_fenics_classes import *
 import parameters_mri_example as params
 
-FEMsim = FEM_simulation(params, mesh_filename='mesh/almi_2elechole.xml', mesh_materials_filename='mesh/almi_2elechole_physical_region.xml', mesh_boundaries_filename='mesh/almi_2elechole_facet_region.xml')
+FEMsim = FEM_simulation(params, mesh_filename='mesh/mri_2elec.xml', mesh_materials_filename='mesh/mri_2elec_physical_region.xml', mesh_boundaries_filename='mesh/mri_2elec_facet_region.xml')
 
 #create one radial source at 1cm from elec somewhere in the grey matter
 # more info help(FEM_simulation.source_locations)
