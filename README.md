@@ -1,4 +1,3 @@
-# FEMfuns
 <p align="center">
   <img src="https://raw.githubusercontent.com/meronvermaas/FEMfuns/master/logo.png" width="250">
 </p>
