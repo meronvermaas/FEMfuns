@@ -1,5 +1,5 @@
 import sys
-appfolder = '/home/meron/pipeline_code/' #'/path/to/forward_model/folder')
+appfolder = '/path/to/forward_model/folder')
 sys.path.insert(0, appfolder)
 
 from fw_fenics_classes import *
