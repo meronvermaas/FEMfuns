@@ -1,0 +1,3 @@
+Get your geometry here:
+at 	https://simnibs.github.io/simnibs/build/html/index.html and download the ernie mesh and anisotropy matrix
+or contact m.vermaas@science.ru.nl

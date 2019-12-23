@@ -1,0 +1,3 @@
+Get your geometry here:
+https://github.com/meronvermaas/fourspheremodel/tree/master/mesh
+or contact m.vermaas@science.ru.nl
