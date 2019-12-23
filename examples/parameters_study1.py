@@ -11,7 +11,7 @@ Volume conduction parameters
 '''
 
 material = "dispersive" # options: "resistive" || "capacitive" || "dispersive"
-frequencies = [1e2]
+frequencies = [1e7]
 
 unit = 1e-2 #cm
 
