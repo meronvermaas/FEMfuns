@@ -10,4 +10,4 @@ The results of using FEMfuns demonstrate that the pipeline presented in this pap
 
 This software is provided under the GNU General Purpose License version 3.0, You will find a copy of this license within this folder, or from online here: https://www.gnu.org/licenses/gpl-3.0.txt
 
-Instructions and will follow in January 2020
+Instructions will be uploaded in January 2020
