@@ -2,7 +2,12 @@ import numpy as np
 import os
 this_dir, this_filename = os.path.split(__file__)
 
-colecole_params = np.genfromtxt(this_dir+"/colecole_parameters.csv", delimiter=',', \
+try:
+    colecole_params = np.genfromtxt(this_dir+"/colecole_parameters.csv", delimiter=',', \
+                  dtype = None, encoding='utf-8', skip_header=1, \
+                  names = ['Tissue','ef','del1','tau1_ps','alf1','del2','tau2_ns','alf2','sig','del3','tau3_us','alf3','del4','tau4_ms','alf4'])
+except:
+    colecole_params = np.genfromtxt(this_dir+"/colecole_parameters.csv", delimiter=',', \
                   dtype = None, skip_header=1, \
                   names = ['Tissue','ef','del1','tau1_ps','alf1','del2','tau2_ns','alf2','sig','del3','tau3_us','alf3','del4','tau4_ms','alf4'])
 
@@ -32,7 +37,7 @@ def colecole_gabriel(frequency,tissue_type):
  returns epsilon, sigma
     '''
 
-    if np.abs(frequency) < 100: #False:
+    if False: #np.abs(frequency) < 100: # option to clip low/dc frequencies not used right now
         if tissue_type == 'Brain_Grey_Matter':
             return 0, .239
         elif tissue_type == 'Brain_White_Matter':
@@ -48,6 +53,8 @@ def colecole_gabriel(frequency,tissue_type):
         else:
             return "This material conductivity below 100Hz is unknown"
     else:
+        if frequency ==0:
+            frequency = 1e-10
         e_0 = 8.85e-12 #F/m
         omega = frequency*2*np.pi
 
