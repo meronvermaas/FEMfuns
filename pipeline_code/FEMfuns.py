@@ -166,11 +166,11 @@ class FEM_simulation(object):
         solver = KrylovSolver(self.solver_method, self.preconditioner)
 
         prm = solver.parameters
-        prm.absolute_tolerance = self.absolute_tolerance
+        prm['absolute_tolerance'] = self.absolute_tolerance
         if self.relative_tolerance:
-            prm.relative_tolerance = self.relative_tolerance
-        prm.maximum_iterations = self.maximum_iterations
-        prm.monitor_convergence = True
+            prm['relative_tolerance'] = self.relative_tolerance
+        prm['maximum_iterations'] = self.maximum_iterations
+        prm'[monitor_convergence'] = True
         #info(solver.parameters, True)
         #set_log_level(PROGRESS)
 
@@ -182,10 +182,10 @@ class FEM_simulation(object):
             print( "RuntimeError: Solver did not converge, trying with gmres and ilu and relative tolerance at 1e-1 (this will result in a lower accuracy)")
             solver = KrylovSolver('gmres', 'ilu')
             prm = solver.parameters
-            prm.absolute_tolerance = 1E-8
-            prm.relative_tolerance = 1E-1
-            prm.maximum_iterations = 10000
-            prm.monitor_convergence = True
+            prm['absolute_tolerance'] = 1E-8
+            prm['relative_tolerance'] = 1E-1
+            prm['maximum_iterations'] = 10000
+            prm['monitor_convergence'] = True
 
             iterations = solver.solve(self.A, self.phi.vector(), self.b)
 
@@ -371,7 +371,7 @@ class FEM_simulation(object):
                 delta1 = PointSource(self.geometry.funcspace['mixed'].sub(1), tmp_point, monopole[3])
                 delta1.apply(self.b)
 
-    def get_poisson_values(self, coords, allsols = False):
+    def get_poisson_values(self, coords, allsols = False, filename=None):
 
         if allsols or type(allsols)==int:
             values = []
@@ -391,6 +391,11 @@ class FEM_simulation(object):
         else:
             self.phi.set_allow_extrapolation(True)
             values = self.loop_coords(self.phi, coords)
+        if not os.path.exists('results'):
+            os.makedirs('results')
+
+        if filename:
+            np.save(os.path.join('results',filename),values)
 
         return np.asarray(values)
 
