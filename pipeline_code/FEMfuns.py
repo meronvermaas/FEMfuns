@@ -170,7 +170,7 @@ class FEM_simulation(object):
         if self.relative_tolerance:
             prm['relative_tolerance'] = self.relative_tolerance
         prm['maximum_iterations'] = self.maximum_iterations
-        prm'[monitor_convergence'] = True
+        prm['monitor_convergence'] = True
         #info(solver.parameters, True)
         #set_log_level(PROGRESS)
 
