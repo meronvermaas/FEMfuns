@@ -22,7 +22,7 @@ options:
         4) "0": array of size [nr_cells,9] describing the anisotropic tensor
 '''
 volume_markers = {
-'0': np.load('../mesh/aniso_tensor.npy')
+'0': np.load('mesh/aniso_tensor.npy')
 }
 
 monopole_list = []
