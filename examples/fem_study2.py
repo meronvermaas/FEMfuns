@@ -47,4 +47,4 @@ for bound in FEMsim.params.boundary_markers:
     FEMsim.params.boundary_markers[bound][2] = 'dispersive'
 FEMsim.main(solver_method='gmres', preconditioner='hypre_euclid', relative_tolerance=1e-2)
 
-np.save(FEMsim.solutions,'results/fem2_capdisp.npy')
+np.save('results/fem2_capdisp.npy', FEMsim.solutions)
