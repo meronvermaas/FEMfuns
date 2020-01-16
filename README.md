@@ -30,15 +30,12 @@ Run the code and wait (depending on the study and geometry) a while:
 Study 1 run the following lines in terminal:
 ```
 python3.7 fem_study1.py
-
 python3.7 analytical_correct.py
-
 python3.7 plot_study1.py
 ```
 Study 2 run the following lines in terminal:
 ```
 python3.7 fem_study2.py
-
 python3.7 plot_study2.py
 ```
 Study 3 run the following lines in terminal:
