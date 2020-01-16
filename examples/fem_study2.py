@@ -47,7 +47,4 @@ for bound in FEMsim.params.boundary_markers:
     FEMsim.params.boundary_markers[bound][2] = 'dispersive'
 FEMsim.main(solver_method='gmres', preconditioner='hypre_euclid', relative_tolerance=1e-2)
 
-#plot a vertex to inspect
-#for ii in range(len(FEMsim.solutions)):
-#    plt.plot(FEMsim.solutions[ii][1][4], FEMsim.solutions[ii][0][:,1000].real)
-#plt.show()
+np.save(FEMsim.solutions,'results/fem2_capdisp.npy')
