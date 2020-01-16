@@ -10,4 +10,29 @@ The results of using FEMfuns demonstrate that the pipeline presented in this pap
 
 This software is provided under the GNU General Purpose License version 3.0, You will find a copy of this license within this folder, or from online here: https://www.gnu.org/licenses/gpl-3.0.txt
 
-Instructions will be uploaded in January 2020
+Instructions to run code:
+
+install anaconda https://docs.continuum.io/anaconda/install/
+
+clone github code https://github.com/meronvermaas/FEMfuns
+
+move to cloned FEMfuns directory: cd FEMfuns
+
+conda env create -f environment.yml
+conda activate femfuns
+conda develop pipeline_code/
+
+Get the mesh geometries (if there are issues, email the author at m.vermaas@science.ru.nl)
+
+Run the code and wait (depending on the study and geometry) a while:
+Study 1 :
+
+python3.7 fem_study1.py
+python3.7 analytical_correct.py
+python3.7 plot_study1.py
+
+python3.7 fem_study2.py
+python3.7 plot_study2.py
+
+python3.7 fem_study3.py
+Inspect pvd files from study3 in Paraview (https://www.paraview.org/download/)
