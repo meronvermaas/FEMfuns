@@ -17,11 +17,12 @@ install anaconda https://docs.continuum.io/anaconda/install/
 clone github code https://github.com/meronvermaas/FEMfuns
 
 move to cloned FEMfuns directory: cd FEMfuns
-
+Set-up the conda environment
+```
 conda env create -f environment.yml
 conda activate femfuns
 conda develop pipeline_code/
-
+```
 Get the mesh geometries
 
 Run the code and wait (depending on the study and geometry) a while:
