@@ -738,7 +738,7 @@ class FEM_geometry(FEM_simulation):
         self.conductivities = np.empty(len(fem_sim.params.volume_markers),dtype=float)
 
         if ((fem_sim.params.material == "capacitive") or (fem_sim.params.material == "dispersive")) and not hasattr(self, 'epsilon'):
-            self.epsilon = Function(fem_sim.geometry.funcspace['const'])
+            self.epsilon = Function(self.funcspace['const'])
             self.permittivities = np.empty(len(fem_sim.params.volume_markers),dtype=float)
 
         #anisotropy tensor
