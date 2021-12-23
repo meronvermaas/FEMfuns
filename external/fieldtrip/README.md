@@ -165,4 +165,6 @@ An example of the potential distribution on the inner sphere with the stimulatin
 <img src="/external/assets/img/innersphere_stim.png"
      style="float: left; width: 380px;" />
      
+The test script with all the above snippets put together is [test_realistic_electrodes.m](test_realistic_electrodes.m)
+
 This work is supported by a grant from stichting IT projecten ([StITPro](https://stitpro.nl/)).
