@@ -14,13 +14,13 @@ FEMfuns is a python based open-source pipeline and will be called externally fro
 - test on sphere: compute the forward solutions in FieldTrip using a compiled binary of FEMfuns
 - test on real dataset: compute forward solution in a realistically shaped head model (test the interaction of forward solutions computed with FEMfuns and pre-processing/source analysis routines implemented in FieldTrip)
 
-![](/external/assets/img/workflow.jpg)
+<img src="/external/assets/img/workflow.jpg"
+     style="float: left; width: 900px;" />
 
 The workflow consists of calling many subroutines (comparable to a Russian doll), starting within the toolbox FieldTrip. First, a FieldTrip script in MATLAB loads data and calls the routine to compute the forward solution. Via this routine, a shell script is written and executed under the hood. This shell script passes the volume conduction parameters (e.g., mesh, tissue and electrode type, source model), and launches FEMfuns. Then, FEMfuns runs the forward simulation. Finally, the lead field matrices are imported back into FieldTrip for further analysis, e.g., source reconstruction analysis. This means that the interaction between FEMfuns and Fieldtrip is fully dependent on reading and writing data. Each is essentially used independently, as visualized in this schematic:
 
-<p align="left">
-  <img src="https://raw.githubusercontent.com/meronvermaas/FEMfuns/master/external/assets/img/workflow_doll_embedded.png" width="380">
-</p>
+<img src="/external/assets/img/workflow_doll_embedded.png"
+     style="float: left; width: 380px;" />
 
 ## Running a simulation with FieldTrip and FEMfuns combined
 The following section illustrates an example where the FEMfuns pipeline is embedded in FieldTrip. The geometry, electrodes and source-model are created in FieldTrip. These are used in FEMfuns to calculate lead fields by means of FEM with optional properties such as an electrode surface conductance and stimulating electrodes. For the simplest case, a 2-sphere geometry is used representing brain and skull compartment and several realistic electrodes on the upper half of the sphere representing the brain.
@@ -91,7 +91,8 @@ Realistic intracranial electrode surfaces are added to the inner sphere (represe
     %label the electrode surfaces where they make contact with the brain
     el_faces = label_surf(tet_elem, 3:7, 1);
 
-{% include image src="/assets/img/sphere_elecs_paraview.png" width="500" %}
+<img src="/external/assets/img/sphere_elecs_paraview.png"
+     style="float: left; width: 380px;" />
 
 Currently volumes and surfaces are not combined in FieldTrip mesh structures. This is a work in progress. For now, a FieldTrip mesh structure is created separately including both volume and surface information:
 
@@ -138,7 +139,8 @@ Finally, the geometry and parameters are used by FEMfuns externally and the resu
 
 An example of the potential distribution on the inner sphere representing the brain (visualized using https://www.paraview.org/):
 
-{% include image src="/assets/img/innersphere_bipole.png" width="500" %}
+<img src="/external/assets/img/innersphere_bipole.png"
+     style="float: left; width: 380px;" />
 
 The structure of this leadfield grid can be used in FieldTrip, for example:
     
@@ -160,6 +162,7 @@ Alternatively, stimulating electrodes can be used:
 
 An example of the potential distribution on the inner sphere with the stimulating and ground electrode (visualized using https://www.paraview.org/):
 
-{% include image src="/assets/img/innersphere_stim.png" width="500" %}
-
+<img src="/external/assets/img/innersphere_stim.png"
+     style="float: left; width: 380px;" />
+     
 This work is supported by a grant from stichting IT projecten ([StITPro](https://stitpro.nl/)).
