@@ -14,11 +14,13 @@ FEMfuns is a python based open-source pipeline and will be called externally fro
 - test on sphere: compute the forward solutions in FieldTrip using a compiled binary of FEMfuns
 - test on real dataset: compute forward solution in a realistically shaped head model (test the interaction of forward solutions computed with FEMfuns and pre-processing/source analysis routines implemented in FieldTrip)
 
-{% include image src="/assets/img/workflow.jpg" width="500" %}
+![](/external/assets/img/workflow.jpg)
 
 The workflow consists of calling many subroutines (comparable to a Russian doll), starting within the toolbox FieldTrip. First, a FieldTrip script in MATLAB loads data and calls the routine to compute the forward solution. Via this routine, a shell script is written and executed under the hood. This shell script passes the volume conduction parameters (e.g., mesh, tissue and electrode type, source model), and launches FEMfuns. Then, FEMfuns runs the forward simulation. Finally, the lead field matrices are imported back into FieldTrip for further analysis, e.g., source reconstruction analysis. This means that the interaction between FEMfuns and Fieldtrip is fully dependent on reading and writing data. Each is essentially used independently, as visualized in this schematic:
 
-{% include image src="/assets/img/workflow_doll_embedded.png" width="500" %}
+<p align="left">
+  <img src="https://raw.githubusercontent.com/meronvermaas/FEMfuns/master/external/assets/img/workflow_doll_embedded.png" width="380">
+</p>
 
 ## Running a simulation with FieldTrip and FEMfuns combined
 The following section illustrates an example where the FEMfuns pipeline is embedded in FieldTrip. The geometry, electrodes and source-model are created in FieldTrip. These are used in FEMfuns to calculate lead fields by means of FEM with optional properties such as an electrode surface conductance and stimulating electrodes. For the simplest case, a 2-sphere geometry is used representing brain and skull compartment and several realistic electrodes on the upper half of the sphere representing the brain.
