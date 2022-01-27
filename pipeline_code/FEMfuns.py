@@ -412,7 +412,7 @@ class FEM_simulation(object):
                 else:
                     values.append(phi_tmp[0]+phi_tmp[1]*1j)
         else:
-            f = project(Constant(1.), self.geometry.funcspace['scalar'], solver_type="cg", preconditioner_type="amg")
+            f = Constant(1.) #project(Constant(1.), self.geometry.funcspace['scalar'], solver_type="cg", preconditioner_type="amg")
             for idx in coords:
                 try:
                     phi_tmp = assemble(phi*self.geometry.ds(idx))/assemble(f*self.geometry.ds(idx))
@@ -424,7 +424,7 @@ class FEM_simulation(object):
                     elec_boundary.apply(elec_func.vector())
                     elec_values = phi.vector()[elec_func.vector() == 1]
                     tmpstd = np.std(elec_values)
-                values.append([phi_tmp, elec_values, elec_values.min(), elec_values.max()])
+                values.append(phi_tmp) # optional additional infos [phi_tmp, elec_values, elec_values.min(), elec_values.max()])
         return values
 
     def get_error_values(self,ana_values,coords):
