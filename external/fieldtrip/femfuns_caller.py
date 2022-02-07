@@ -25,7 +25,12 @@ else:
 
 FEMsim = FEM_simulation(params, mesh_filename=mesh_filename, mesh_materials_filename=mesh_materials_filename,mesh_boundaries_filename=mesh_boundaries_filename)
 
-FEMsim.main(solver_method='cg', preconditioner='ilu')
+if 3 in [len(v) for v in params.boundary_markers.values()]:
+    lagrange_multiplier=True
+else:
+    lagrange_multiplier=False
+
+FEMsim.main(solver_method='cg', preconditioner='ilu',lagrange_multiplier=lagrange_multiplier)
 
 surfintmarker = np.array([], dtype=int)
 for ii in params.boundary_markers.values():

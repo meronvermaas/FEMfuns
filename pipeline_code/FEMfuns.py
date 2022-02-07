@@ -412,12 +412,16 @@ class FEM_simulation(object):
                 else:
                     values.append(phi_tmp[0]+phi_tmp[1]*1j)
         else:
-            f = Constant(1.) #project(Constant(1.), self.geometry.funcspace['scalar'], solver_type="cg", preconditioner_type="amg")
+            f = project(Constant(1.), self.geometry.funcspace['scalar'], solver_type="cg", preconditioner_type="amg")
             for idx in coords:
                 try:
                     phi_tmp = assemble(phi*self.geometry.ds(idx))/assemble(f*self.geometry.ds(idx))
                 except ZeroDivisionError:
-                    phi_tmp = assemble(phi*self.geometry.dS(idx))/assemble(f*self.geometry.dS(idx))
+                    mf = MeshFunction('size_t',self.geometry.mesh, self.geometry.mesh.topology().dim()-1, 0)
+                    mf.array()[self.geometry.boundaries.array()[:]==idx] = 1
+                    elsurf = assemble(f*dS(subdomain_data=mf, subdomain_id=1))
+                    phi_tmp = assemble(phi*dS(subdomain_data=mf, subdomain_id=1))/elsurf
+
                 if  phi.vector().get_local().shape[0] == self.geometry.funcspace['scalar'].dim():
                     elec_boundary = DirichletBC(self.geometry.funcspace['scalar'], 1, self.geometry.boundaries,idx)
                     elec_func = Function(self.geometry.funcspace['scalar'])
