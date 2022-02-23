@@ -47,10 +47,10 @@ Move to the  cloned FEMfuns directory and create the conda environment.
 
     cd FEMfunsDir
     conda env create -f environment.yml
-    conda activate femfuns
-    conda develop pipeline_code/
+    conda develop pipeline_code/ -n femfuns
     
-Creating the environment is only needed once, but every new session where FEMfuns is needed the environment needs to be activated using "conda activate femfuns".
+These steps where the environment is set-up, you only need to do once.
+However, it is necessary to activate the environment by running "conda activate femfuns", every session where FEMfuns is used.
 
 Before starting with FieldTrip, it is important that you set up your [MATLAB path](https://www.fieldtriptoolbox.org/faq/should_i_add_fieldtrip_with_all_subdirectories_to_my_matlab_path) properly.
 
