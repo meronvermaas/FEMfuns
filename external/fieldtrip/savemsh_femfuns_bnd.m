@@ -2,13 +2,14 @@ function savemsh_femfuns_bnd(node,elem,bnd,fname,rname,bname)
 %adjust based on correct gmsh format
 %https://www.manpagez.com/info/gmsh/gmsh-2.2.6/gmsh_63.php
 %
-% savemsh_femfuns(node,elem,fname,rname)
+% savemsh_femfuns_bnd(node,elem,fname,rname)
 %
 % save a tetrahedral mesh to GMSH mesh format (version that works for FEniCS)
 %
 % input:
 %      node: input, node list, dimension (nn,3)
 %      elem: input, tetrahedral mesh element list, dimension (ne,4) or (ne,5) for multi-region meshes
+%      bnd: input, triangle surfaces list, dimension (3) or (4) for multi-region surfaces. Empty array [] input to disregard surfaces.
 %      fname: output file name
 %      rname: name of the regions, cell-array of strings (optional)
 %
@@ -18,8 +19,8 @@ function savemsh_femfuns_bnd(node,elem,bnd,fname,rname,bname)
 if (~exist('rname', 'var')) , rname = {}; end
 if (~exist('bname', 'var')) , bname = {}; end
 if size(elem,2) < 5 , elem(:,5) = 1 ; end
-if size(bnd,2) < 4 , bnd(:,4) = 1 ; end
-if any(bnd(:,4) == 0), bnd(bnd(:,4)==0,:) = []; end
+if ~isempty(bnd) && size(bnd,2) < 4 , bnd(:,4) = 1 ; end
+if ~isempty(bnd) && any(bnd(:,4) == 0), bnd(bnd(:,4)==0,:) = []; end
 %if any(bnd(:,4) == 0), bnd(:,4) = bnd(:,4) + 1 ; end
 fid = fopen(fname,'wt');
 if(fid==-1)
@@ -27,7 +28,7 @@ if(fid==-1)
 end
 nbNodes = size (node,1);
 reg = unique (elem(:,5));
-bnds = unique(bnd(:,4));
+if ~isempty(bnd), bnds = unique(bnd(:,4)); else bnds = []; end
 nbRegion = length(reg);
 nbBoundary = length(bnds);
 nbElementsTet = size (elem, 1);
@@ -68,9 +69,17 @@ clear node
 M.Elements.nb = nbElementsTet + nbElementsBnd;
 M.Elements.type = [uint8(2*ones(nbElementsBnd, 1)); uint8(4*ones(nbElementsTet, 1))];
 M.Elements.tableOfNodesTet = uint32(elem(:,1:4));
-M.Elements.tableOfNodesBnd = uint32(bnd(:,1:3));
+if ~isempty(bnd)
+    M.Elements.tableOfNodesBnd = uint32(bnd(:,1:3));
+else
+    M.Elements.tableOfNodesBnd = uint32([]);
+end
 M.Elements.regionTet = uint16(elem(:,5));
-M.Elements.regionBnd = uint16(bnd(:,4));
+if ~isempty(bnd)
+    M.Elements.regionBnd = uint16(bnd(:,4));
+else
+    M.Elements.regionBnd = uint16([]);
+end
 clear elem bnd
 
 % Build the table of regions and boundaries
