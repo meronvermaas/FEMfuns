@@ -22,6 +22,11 @@ The workflow consists of calling many subroutines (comparable to a Russian doll)
 <img src="/external/assets/img/workflow_doll_embedded.png"
      style="float: left; width: 380px;" />
 
+Besides Fieldtrip, other external software is used in the workflow, e.g., FEniCS, Trident and ISO2MESH. A summary can be found in the schema below, which shows the order in which the softwares are used and for which steps in the pipeline:
+
+<img src="/external/assets/img/schema_doll_embedded.png"
+     style="float: left; width: 440px;" />
+
 ## Running a simulation with FieldTrip and FEMfuns combined
 The following section illustrates an example where the FEMfuns pipeline is embedded in FieldTrip. The geometry, electrodes and source-model are created in FieldTrip. These are used in FEMfuns to calculate lead fields by means of FEM with optional properties such as an electrode surface conductance and stimulating electrodes. For the simplest case, a 2-sphere geometry is used representing brain and skull compartment and several realistic electrodes on the upper half of the sphere representing the brain.
 
