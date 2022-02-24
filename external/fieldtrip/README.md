@@ -231,4 +231,6 @@ Finally, we can create our volumetric tetrahedral mesh with 7 regions, 4 electro
 
 The steps where the sourcemodel and leadfield is created is omitted here, since it consists of exactly the same steps as the 2-sphere example. The test script with the complete code can be found here: [test_headmodel_realistic_electrodes.m](test_headmodel_realistic_electrodes.m)
 
+Disclaimer: as the number of cells increases, the RAM usage will quickly increase when converting the mesh to FEMfuns format and computing the FEM. In this realistic head model make sure to have at least 5GB available.
+
 This work is supported by a grant from stichting IT projecten ([StITPro](https://stitpro.nl/)).
