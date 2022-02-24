@@ -97,11 +97,15 @@ vol.unit = mesh.unit;
 vol.type = 'simbio';
 
 cfg                 = [];
-cfg.resolution      = 5; %in mm
+cfg.resolution      = 50; %in mm
 cfg.headmodel       = vol;
 cfg.inwardshift     = 1; %shifts dipoles away from surfaces
 sourcemodel         = ft_prepare_sourcemodel(cfg);
 
 % conductivities for brain, scalp and metal electrodes are set
 conductivities = [0.33 0.01 0.3 1e10 1e10 1e10 1e10 1e10];
+
+% Disclaimer: converting the mesh to FEMfuns format is memory intense (around 5GB)
+% Disclaimer: a small number of dipoles is created in this example. If this number becomes large, the memory load can rapidly increase since all the solutions are kept in memory in FEMfuns.
+% This may be resolved in future versions.
 lf_rec = femfuns_leadfield(mesh,conductivities,sourcemodel,elec);
