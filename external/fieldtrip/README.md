@@ -63,6 +63,7 @@ Before starting with FieldTrip, it is important that you set up your [MATLAB pat
     ft_defaults
 
 ### Simulation
+#### Two-sphere model
 Then surfaces of two spheres can be created using FieldTrip:
 
     % Create a spherical volume conductor with two spheres of radius 7 and 10 cm at the origin
@@ -171,5 +172,63 @@ An example of the potential distribution on the inner sphere with the stimulatin
      style="float: left; width: 380px;" />
      
 The test script with all the above snippets put together is [test_realistic_electrodes.m](test_realistic_electrodes.m)
+
+#### Realistic model of the head
+The workflow for a realistic headmodel based on an anatomical MRI is comparable to the 2-sphere example. Here, we will go over the first steps where the mesh is created.
+
+First, read in the mri data from FieldTrip ([download the dataset here: Subject01.zip](ftp://ftp.fieldtriptoolbox.org/pub/fieldtrip/tutorial/Subject01.zip)) and reslice it:
+
+    mri = ft_read_mri('Subject01.mri');
+    cfg     = [];
+    cfg.dim = mri.dim;
+    mri     = ft_volumereslice(cfg,mri);
+
+Then, the anatomical mri is segmented in 3 non overlapping tissue types:
+
+    cfg           = [];
+    cfg.output    = {'brain','skull','scalp'};
+    segmentedmri  = ft_volumesegment(cfg, mri);
+
+Next, triangulated surfaces can be created at the border of the tissues:
+
+    cfg        = [];
+    cfg.tissue={'brain','skull','scalp'};
+    cfg.numvertices = 3000;
+    cfg.method = 'iso2mesh';
+    bnd = ft_prepare_mesh(cfg,segmentedmri);
+
+Now we are getting to the part of adding realistic electrodes. To do this, a FieldTrip electrode structure with 4 electrode positions on top of the brain is made:
+
+    el1 = [51.298 -26.242 106.026]; el2 = [38.926 -37.6445 105.965]; el3 = [31.47 -28.13 113.007]; el4 = [45.06 -13.467 112.423];
+    [~,I1] = min(abs(sum(bnd(1).pos-el1,2))); [~,I2] = min(abs(sum(bnd(1).pos-el2,2))); [~,I3] = min(abs(sum(bnd(1).pos-el3,2))); [~,I4] = min(abs(sum(bnd(1).pos-el4,2)));
+    sel = [I1 I2 I3 I4];
+    elec = [];
+    elec.elecpos = bnd(1).pos(sel,:);
+    for i=1:length(sel)
+      elec.label{i} = sprintf('elec%d', i);
+    end
+    elec.unit = 'mm';
+    % update the electrode sets to the latest standards
+    elec = ft_datatype_sens(elec);
+
+Then, we can combine the brain surface with electrode surfaces:
+
+    dp_elec = 0.5; %height  of the electrode cylinder
+    rad_elec = 2; %radius of the electrode cylinder
+    [dented_elsurf,elecmarkers] = add_electrodes(bnd(1), elec.elecpos, rad_elec, dp_elec);
+
+    % Add the skull and scalp to the brain again
+    merged_surfs = dented_elsurf;
+    for ii = 2:length(bnd)
+        merged_surfs = add_surf(merged_surfs,bnd(ii));
+    end
+
+Finally, we can create our volumetric tetrahedral mesh with 7 regions, 4 electrodes, brain, skull and scalp
+
+    [tet_node,tet_elem] = s2m(merged_surfs.pos,merged_surfs.tri, 1, 1, 'tetgen', [insidepoints; elecmarkers]);
+    %label the electrode surface where they make contact with the brain
+    el_faces = label_surf(tet_elem, length(bnd)+1:length(elec.elecpos)+length(bnd), 1);
+
+The steps where the sourcemodel and leadfield is created is omitted here, since it consists of exactly the same steps as the 2-sphere example. The test script with the complete code can be found here: [test_headmodel_realistic_electrodes.m](test_headmodel_realistic_electrodes.m)
 
 This work is supported by a grant from stichting IT projecten ([StITPro](https://stitpro.nl/)).
