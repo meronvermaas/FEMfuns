@@ -478,7 +478,7 @@ class FEM_simulation(object):
 
                 projfunc.vector().set_local(solution[0])
                 if subdomain_marker:
-                    subprojfunc = project(projfunc, subV)
+                    subprojfunc = project(projfunc, subV, solver_type="cg", preconditioner_type="amg")
                     File(os.path.join('pvds_dir',tmp_filename)) << subprojfunc
                 else:
                     File(os.path.join('pvds_dir',tmp_filename)) << projfunc
@@ -492,7 +492,7 @@ class FEM_simulation(object):
                 else:
                     P1 = FiniteElement("CG", submesh, self.order)
                     subV = FunctionSpace(submesh, MixedElement([P1,P1]))
-                subprojfunc = project(self.phi, subV)
+                subprojfunc = project(self.phi, subV, solver_type="cg", preconditioner_type="amg")
                 File(os.path.join('pvds_dir',filename)) << subprojfunc
             else:
                 File(os.path.join('pvds_dir',filename)) << self.phi
