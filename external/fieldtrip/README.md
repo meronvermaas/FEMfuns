@@ -57,6 +57,10 @@ Move to the  cloned FEMfuns directory and create the conda environment.
 These steps where the environment is set-up, you only need to do once.
 However, it is necessary to activate the environment by running "conda activate femfuns", every session where FEMfuns is used.
 
+If you will not work from the FEMfuns directory and want to have all scripts available, you may add the path to .bashrc, e.g.:
+
+    export PATH="$HOME/FEMfuns/external/fieldtrip:$PATH"
+
 Before starting with FieldTrip, it is important that you set up your [MATLAB path](https://www.fieldtriptoolbox.org/faq/should_i_add_fieldtrip_with_all_subdirectories_to_my_matlab_path) properly.
 
     cd PATH_TO_FIELDTRIP
