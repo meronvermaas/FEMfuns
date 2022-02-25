@@ -239,6 +239,6 @@ After running the code, an example of the potential distribution on the brain lo
 <img src="/external/assets/img/3surf_elecs_bipole.png"
      style="float: left; width: 400px;" />
 
-Disclaimer: as the number of cells increases, the RAM usage will quickly increase when converting the mesh to FEMfuns format and computing the FEM. In this realistic head model make sure to have at least 5GB available.
+Disclaimer: as the number of cells increases, the RAM usage will quickly increase when converting the mesh to FEMfuns format and computing the FEM. In this realistic head model (with 7198480 tetrahedra) make sure to have at least 5GB available.
 
 This work is supported by a grant from stichting IT projecten ([StITPro](https://stitpro.nl/)).
