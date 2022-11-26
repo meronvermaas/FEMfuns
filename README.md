@@ -1,3 +1,5 @@
+<h1>DEPRECATED, the project is continued and maintained in this fork: https://github.com/Donders-Institute/FEMfuns</h1>
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/meronvermaas/FEMfuns/master/logo.png" width="250">
 </p>
